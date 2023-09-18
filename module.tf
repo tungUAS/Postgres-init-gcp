@@ -1,9 +1,10 @@
 module "test-vpc-module" {
-  source       = "terraform-google-modules/network/google"
-  version      = "~> 7.0"
-  project_id   = var.project_id
-  network_name = "vpc-sql-instance"
-  mtu          = 1460
+  source                  = "terraform-google-modules/network/google"
+  version                 = "~> 7.0"
+  project_id              = var.project_id
+  network_name            = "vpc-sql-instance"
+  auto_create_subnetworks = false
+  mtu                     = 1460
 
   subnets = [
     {
