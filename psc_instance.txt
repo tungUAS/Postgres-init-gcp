@@ -1,0 +1,9 @@
+gcloud sql instances create sql-instance-psc-tung \
+--project=cst-pbag-aiml-test \
+--region=europe-west4 \
+--enable-private-service-connect \
+--allowed-psc-projects=cst-pbag-aiml-test \
+--availability-type=regional \
+--no-assign-ip \
+--tier=db-custom-2-7680 \
+--database-version=POSTGRES_14
