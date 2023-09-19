@@ -24,27 +24,10 @@ resource "google_sql_database_instance" "sql-instance-abcxzy-tung" {
   deletion_protection = false
 }
 
-resource "google_sql_database_instance" "sql-instance-tung" {
-  name             = "sql-instance-tung"
-  region           = "europe-west4"
-  database_version = "POSTGRES_14"
-  root_password    = "abcABC123!"
-  settings {
-    tier = "db-custom-2-7680"
-    password_validation_policy {
-      min_length                  = 6
-      reuse_interval              = 2
-      complexity                  = "COMPLEXITY_DEFAULT"
-      disallow_username_substring = true
-      password_change_interval    = "30s"
-      enable_password_policy      = true
-    }
-  }
-  deletion_protection = false
-}
-
-
-resource "google_sql_database_instance" "sql-instance-psc-tung" {
+// psc_config not expected here
+// https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance
+// psc instance creation only via rest or gcloud
+/* resource "google_sql_database_instance" "sql-instance-psc-tung" {
   name             = "sql-instance-psc-tung"
   region           = "europe-west4"
   database_version = "POSTGRES_14"
@@ -63,4 +46,4 @@ resource "google_sql_database_instance" "sql-instance-psc-tung" {
     }
     availability_type = "REGIONAL"
   }
-}
+} */
