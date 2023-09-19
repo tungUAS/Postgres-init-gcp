@@ -27,6 +27,7 @@ resource "google_sql_database_instance" "sql-instance-abcxzy-tung" {
 
 resource "google_sql_database_instance" "sql-instance-psc-tung" {
   name             = "sql-instance-psc-tung"
+  region           = "europe-west4"
   database_version = "POSTGRES_14"
   settings {
     tier = "db-custom-2-7680"
