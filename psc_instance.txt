@@ -1,9 +1,35 @@
-gcloud sql instances create sql-instance-psc-tung \
+gcloud sql instances create sql-instance-psc-tung\
+--project=cst-pbag-aiml-test\
+--region=europe-west4\
+--enable-private-service-connect\
+--allowed-psc-projects=cst-pbag-aiml-test\
+--availability-type=regional\
+--no-assign-ip\
+--tier=db-custom-2-7680\
+--database-version=POSTGRES_14
+
+
+
+gcloud compute addresses create private-ip-psc-sql-instance-tung \
 --project=cst-pbag-aiml-test \
 --region=europe-west4 \
---enable-private-service-connect \
---allowed-psc-projects=cst-pbag-aiml-test \
---availability-type=regional \
---no-assign-ip \
---tier=db-custom-2-7680 \
---database-version=POSTGRES_14
+--subnet=psc-sql-instance-subnet \
+--addresses=10.0.4.4
+
+gcloud sql instances describe sql-instance-psc-tung
+
+gcloud compute forwarding-rules create psc-sql-tung-endpoint --address=private-ip-psc-sql-instance-tung --project=cst-pbag-aiml-test --region=europe-west4 --network=psc-vpc --target-service-attachment=projects/nf0e0b4860cfa5780p-tp/regions/europe-west4/serviceAttachments/a-80a578abf29f-psc-service-attachment-7c22288a3258e82d
+
+gcloud compute forwarding-rules describe psc-sql-tung-endpoint \ 
+--project=cst-pbag-aiml-test \
+--region=europe-west4
+
+
+gcloud compute addresses describe private-ip-psc-sql-instance-tung --project=cst-pbag-aiml-test --region=europe-west4
+
+psql "sslmode=disable dbname=sql-instance-psc-tung user=postgres hostaddr=10.0.4.4"
+
+
+gcloud compute addresses describe please-run.sql.psc.tung.instance. --project=cst-pbag-aiml-test --region=europe-west4
+
+psql "sslmode=disable dbname=sql-instance-psc-tung user=https://www.googleapis.com/compute/v1/projects/cst-pbag-aiml-test/regions/europe-west4/forwardingRules/psc-sql-tung-endpoint host=please-run.sql.psc.tung.instance."

@@ -24,26 +24,19 @@ resource "google_sql_database_instance" "sql-instance-abcxzy-tung" {
   deletion_protection = false
 }
 
-// psc_config not expected here
-// https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance
-// psc instance creation only via rest or gcloud
-/* resource "google_sql_database_instance" "sql-instance-psc-tung" {
-  name             = "sql-instance-psc-tung"
+resource "google_sql_database_instance" "default" {
+  name             = "sql-instance-psa"
   region           = "europe-west4"
   database_version = "POSTGRES_14"
+
+  depends_on = [google_service_networking_connection.default]
+
   settings {
     tier = "db-custom-2-7680"
     ip_configuration {
-      psc_config {
-        psc_enabled               = true
-        allowed_consumer_projects = ["cst-pbag-aiml-test"]
-      }
-      ipv4_enabled = false
+      ipv4_enabled    = "false"
+      private_network = google_compute_network.peering_network.id
     }
-    backup_configuration {
-      enabled            = true
-      binary_log_enabled = true
-    }
-    availability_type = "REGIONAL"
   }
-} */
+  deletion_protection = false
+}
