@@ -41,7 +41,7 @@ resource "google_service_networking_connection" "default" {
 }
 
 // start vpc_sql_instance_private_ip
-resource "google_sql_database_instance" "private-sql-instance-psa" {
+resource "google_sql_database_instance" "sql-instance-psa" {
   name             = "sql-instance-psa"
   region           = "europe-west4"
   database_version = "POSTGRES_14"
