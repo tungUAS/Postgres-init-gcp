@@ -24,8 +24,19 @@ resource "google_sql_database_instance" "sql-instance-abcxzy-tung" {
   deletion_protection = false
 }
 
-resource "google_sql_database_instance" "default" {
-  name             = "sql-instance-psa"
+/* resource "google_compute_network" "peering_network" {
+  name                    = "private-network"
+  auto_create_subnetworks = "false"
+}
+
+resource "google_service_networking_connection" "default" {
+  network                 = "vpc-sql-psa-network"
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
+}
+
+resource "google_sql_database_instance" "private-sql-instance-psa" {
+  name             = "private-sql-instance-psa"
   region           = "europe-west4"
   database_version = "POSTGRES_14"
 
@@ -39,4 +50,4 @@ resource "google_sql_database_instance" "default" {
     }
   }
   deletion_protection = false
-}
+} */
