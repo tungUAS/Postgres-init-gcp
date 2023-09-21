@@ -58,9 +58,6 @@ resource "google_sql_database_instance" "sql-instance-psa" {
   deletion_protection = false
 }
 
-# This code is compatible with Terraform 4.25.0 and versions that are backwards compatible to 4.25.0.
-# For information about validating this Terraform code, see https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build#format-and-validate-the-configuration
-
 resource "google_compute_instance" "instance-vm-sql-psa" {
   boot_disk {
     auto_delete = true
