@@ -25,7 +25,7 @@ resource "google_sql_database_instance" "sql-instance-abcxzy-tung" {
 }
 
 // start cloud_sql_instance_private_ip_network
-resource "google_compute_network" "vpc-sql-psa-network" {
+resource "google_compute_network" "peering_network" {
   name                    = "vpc-sql-psa-network"
   auto_create_subnetworks = "false"
 }
