@@ -91,14 +91,6 @@ resource "google_compute_instance" "instance-vm-sql-psa" {
       network_tier = "PREMIUM"
     }
 
-    network = "projects/cst-pbag-aiml-test/global/networks/default"
-  }
-
-  network_interface {
-    access_config {
-      network_tier = "PREMIUM"
-    }
-
     subnetwork = "projects/cst-pbag-aiml-test/regions/europe-west4/subnetworks/subnet-vpc-sql-psa"
   }
 
