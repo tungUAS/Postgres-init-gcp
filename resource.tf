@@ -31,3 +31,21 @@ resource "google_sql_database_instance" "sql-instance-psa" {
   }
   deletion_protection = false
 }
+
+// start private internal IP address for the endpoint.
+resource "google_compute_address" "psc_endpoint_ip" {
+  address_type = "INTERNAL"
+  name         = "private-ip-psc-sql-endpoint"
+  purpose      = "GCE_ENDPOINT"
+  region       = var.region
+  subnetwork   = module.vpc-sql-psc-module.subnets[0].subnet_name
+}
+
+// start endpoint
+resource "google_compute_forwarding_rule" "psc-sql-endpoint" {
+  ip_address = google_compute_address.psc_endpoint_ip.self_link
+  name       = "psc-sql-endpoint"
+  network    = module.vpc-sql-psc-module.network_name
+  region     = var.region
+  target     = var.service_attachment
+}
