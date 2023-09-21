@@ -38,7 +38,7 @@ resource "google_compute_address" "psc_endpoint_ip" {
   name         = "private-ip-psc-sql-endpoint"
   purpose      = "GCE_ENDPOINT"
   region       = var.region
-  subnetwork   = module.vpc-sql-psc-module.subnets[0].subnet_name
+  subnetwork   = module.vpc-sql-psc-module.subnets.subnet_name
 }
 
 // start endpoint
