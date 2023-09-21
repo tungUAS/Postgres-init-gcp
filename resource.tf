@@ -52,7 +52,7 @@ resource "google_sql_database_instance" "sql-instance-psa" {
     tier = "db-custom-2-7680"
     ip_configuration {
       ipv4_enabled    = "false"
-      private_network = "vpc-sql-psa-network"
+      private_network = "projects/${var.project_id}/global/networks/${module.vpc-sql-module.network_name}"
     }
   }
   deletion_protection = false
