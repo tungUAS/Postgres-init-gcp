@@ -24,24 +24,18 @@ resource "google_sql_database_instance" "sql-instance-abcxzy-tung" {
   deletion_protection = false
 }
 
-// start cloud_sql_instance_private_ip_network
-resource "google_compute_network" "peering_network" {
-  name                    = "vpc-sql-psa-network"
-  auto_create_subnetworks = "false"
-}
-
 // start cloud_sql_instance_private_ip_address
 resource "google_compute_global_address" "private_ip_address" {
   name          = "private-ip-address-sql-instance-psa"
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
   prefix_length = 16
-  network       = google_compute_network.peering_network.id
+  network       = module.vpc-sql-module.network_name
 }
 
 // start vpc_sql_instance_private_ip_service_connection
 resource "google_service_networking_connection" "default" {
-  network                 = google_compute_network.peering_network.id
+  network                 = module.vpc-sql-module.network_name
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
 }
@@ -58,7 +52,7 @@ resource "google_sql_database_instance" "private-sql-instance-psa" {
     tier = "db-custom-2-7680"
     ip_configuration {
       ipv4_enabled    = "false"
-      private_network = google_compute_network.peering_network.id
+      private_network = module.vpc-sql-module.network_name
     }
   }
   deletion_protection = false
