@@ -47,5 +47,6 @@ resource "google_compute_forwarding_rule" "psc-sql-endpoint" {
   name       = "psc-sql-endpoint"
   network    = module.vpc-sql-psc-module.network_name
   region     = var.region
+  load_balancing_scheme = ""
   target     = var.service_attachment
 }
