@@ -28,7 +28,7 @@ c. create a SQL Instance with private ip configuration
 
 You have to configure the private connection peering before creating the instance. 
 
-First, allocate a private IP-address for the SQL-instance in the same VPC-network above.
+First, allocate a IP-address for the PSA Connection. This will be automatically configured by google api.
 ```
 resource "google_compute_global_address" "private_ip_address" {
   name          = "private-ip-address-sql-instance-psa"
