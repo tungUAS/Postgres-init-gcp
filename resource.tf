@@ -24,7 +24,7 @@ resource "google_sql_database_instance" "sql-instance-psa" {
 
   settings {
     tier = "db-custom-2-7680"
-    ip_configuration {
+    ip_configuration { 
       ipv4_enabled    = "false"
       private_network = "projects/${var.project_id}/global/networks/${module.vpc-sql-module.network_name}"
     }
